@@ -7,7 +7,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-
+import Header from '../common/Header';
 import { styled } from '@mui/material/styles';
 
 
@@ -49,7 +49,7 @@ function CourseDetails() {
       
   return (
     <div>
-     
+     <Header/>
    
       <TableContainer>
     <Table sx={{ minWidth:700 }} aria-label="customized table">
