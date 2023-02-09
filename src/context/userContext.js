@@ -32,6 +32,7 @@ export const UserProvider=({children})=>{
     useEffect(()=>{
         console.log("user context",state)
     },[state])
+    console.log("user context",state)
     return(
         <userContext.Provider value={[state,dispatch]}>
         {children}

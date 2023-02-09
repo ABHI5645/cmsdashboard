@@ -12,23 +12,24 @@ import './landingPage.css';
 function LandingPage() {
   const navigate=useNavigate();
   const [state,dispatch]=useContext(userContext);
-    const redirectUser=({displayName,email,photoURL})=>{
+    const redirectUser=({displayName,email,photoUrl})=>{
+      console.log(displayName)
         dispatch({
           type:"LOGIN",
-          payLoad:{
+          payload:{
             displayName,
             email,
-            photoURL
+            photoUrl
           }
 
         })
 
     
-    if(true){
+    if(state.isAuth){
       navigate('/dashboard');
     }
     else{
-      navigate('/onboarding');
+      navigate('/');
     }
   }
     const signIn=()=>{
@@ -37,6 +38,7 @@ function LandingPage() {
         
         signInWithPopup(auth, provider)
           .then((result) => {
+            console.log(result);
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
@@ -44,11 +46,15 @@ function LandingPage() {
         
             // The signed-in user info.
             const user = result.user;
-            const {displayName,email,photoURL
-            }=user;
+            const {displayName,email,photoUrl}=user;
+            redirectUser({displayName,email,photoUrl})
+            // const {displayName,email,photoURL
+            // }=user;
             
-            redirectUser({displayName,email,photoURL})
+            // redirectUser({displayName,email,photoURL})
+            
             console.log(user)
+            // redirectUser();
             // IdP data available using getAdditionalUserInfo(result)
             // ...
           }).catch((error) => {
