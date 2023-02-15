@@ -7,6 +7,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import { useForm } from "react-hook-form";
+import {Link} from 'react-router-dom'
+import { width } from "@mui/system";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -29,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function CommonTable({tableData,setTableData,onDelete,onEdit}){
+function CommonTable({tableData,setTableData,onDelete,onEdit,formData}){
   // State to store the table data
   // const [tableData, setTableData] = useState([]);
 
@@ -67,34 +70,54 @@ function CommonTable({tableData,setTableData,onDelete,onEdit}){
     saveData(data);
   };
 
+
   return (
     <TableContainer>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
       <TableHead>
       <TableRow>
-      <StyledTableCell>Subject</StyledTableCell>
-      <StyledTableCell align="right" >Description</StyledTableCell>
-      <StyledTableCell align="right"  >Course</StyledTableCell>
+      
+       
+       
+      <StyledTableCell >Subject</StyledTableCell>
+       <StyledTableCell align="right" >Description</StyledTableCell>
+      <StyledTableCell align="right"  >CourseId</StyledTableCell>
       <StyledTableCell align="right" >Duration</StyledTableCell>
       <StyledTableCell align="right" >Action</StyledTableCell>
+
           </TableRow>
         </TableHead>
+        {/* // <tr key={index}> */}
+
         <TableBody>
         {tableData.map((row, index) => (
-          // <tr key={index}>
-            <StyledTableRow key={index}>
+                     
+         
+          
+
+            <StyledTableRow key={index} >
+            
               <StyledTableCell component="th" scope="row">{row.subjectName}</StyledTableCell >
             <StyledTableCell align="right">{row.description} </StyledTableCell >
-            <StyledTableCell align="right">{row.code} </StyledTableCell >
+            <Link to={`/Course/${row.code}`} style={{
+          
+          cursor: "pointer",
+          textDecoration: "none",
+          color:'black'
+        }}>  <StyledTableCell align="right">{row.code} </StyledTableCell ></Link>
             <StyledTableCell align="right">{row.duration} </StyledTableCell >
             <StyledTableCell align="right">
               <button onClick={() => onEdit(index, row)}>Edit</button>
               <button onClick={() => onDelete(index)}>Delete</button>
               </StyledTableCell>
+              
               </StyledTableRow>
+          // 
           /* </tr> */
         ))}
+         
       </TableBody>
+     
       </Table>
     </TableContainer>
   );
